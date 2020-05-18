@@ -3,11 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import scoresReducer from './reducers/scores-reducer'
+import { combineReducers, createStore } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(
-  <React.StrictMode>
+
+const reducers = combineReducers({
+  scores: scoresReducer
+})
+
+const store = createStore(reducers, composeWithDevTools())
+
+ReactDOM.hydrate(
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
